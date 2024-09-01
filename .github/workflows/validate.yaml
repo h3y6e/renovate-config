@@ -1,0 +1,22 @@
+name: renovate-config:validate
+
+on:
+  push:
+    paths:
+      - ".github/**"
+      - "default.json"
+      - "ignore-paths.json"
+    branches:
+      - main
+  pull_request:
+    paths:
+      - ".github/**"
+      - "default.json"
+      - "ignore-paths.json"
+    types: [opened, synchronize]
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validator.yaml
+    with:
+      config_files: ".github/renovate.json default.json ignore-paths.json"

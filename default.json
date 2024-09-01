@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "configMigration": true,
+  "extends": [
+    "config:best-practices",
+    ":timezone(Asia/Tokyo)",
+    ":label(dependencies)",
+    ":prHourlyLimitNone",
+    ":prConcurrentLimit10",
+    "schedule:monthly"
+  ],
+  "rebaseWhen": "conflicted",
+  "additionalBranchPrefix": "{{#if packageFileDir}}{{packageFileDir}}/{{/if}}",
+  "commitMessageSuffix": "{{#if packageFileDir}}in {{packageFileDir}}{{/if}}",
+  "postUpdateOptions": [
+    "gomodTidy"
+  ]
+}

@@ -1,0 +1,35 @@
+name: renovate-config-validator
+
+on:
+  workflow_call:
+    inputs:
+      config_files:
+        description: "renovate設定ファイルのパス。複数の場合はスペース区切りで指定する。"
+        type: string
+        default: ".github/renovate.json"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  renovate-config-validator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node
+
+      - name: Validate
+        run: |
+          echo "${{ inputs.config_files }}" | xargs npx -y -p renovate -- renovate-config-validator --strict
