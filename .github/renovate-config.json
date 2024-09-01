@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "branchPrefix": "heyhoe-renovate/",
+  "onboarding": false,
+  "platform": "github",
+  "repositories": [
+    "h3y6e/renovate-config"
+  ]
+}

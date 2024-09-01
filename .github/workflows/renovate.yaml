@@ -1,0 +1,31 @@
+name: renovate-config:renovate
+
+on:
+  schedule:
+    - cron: "0 15 * * *"
+  workflow_dispatch:
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RENOVATE_GITHUB_APP_ID }}
+          private-key: ${{ secrets.RENOVATE_GITHUB_APP_PRIVATE_KEY }}
+
+      - name: Run renovate
+        uses: renovatebot/github-action@v40.2.7
+        with:
+          configurationFile: .github/renovate-config.json
+          docker-cmd-file: .github/renovate-entrypoint.sh
+          token: ${{ steps.app-token.outputs.token }}
+        env:
+          LOG_LEVEL: debug
+          RENOVATE_PLATFORM_COMMIT: true
