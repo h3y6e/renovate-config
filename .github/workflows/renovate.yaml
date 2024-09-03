@@ -21,6 +21,7 @@ jobs:
         with:
           app-id: ${{ secrets.RENOVATE_GITHUB_APP_ID }}
           private-key: ${{ secrets.RENOVATE_GITHUB_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
 
       - name: Run renovate
         uses: renovatebot/github-action@630a255a1f2f56c8d8ce160bed3e3ca577ca53e2 # v40.2.7
