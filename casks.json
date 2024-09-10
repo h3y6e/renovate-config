@@ -6,11 +6,11 @@
       "fileMatch": [
         "^Casks/[^/]+\\.rb$"
       ],
+      "matchStringsStrategy": "combination",
       "matchStrings": [
-        "\\s+version\\s+\"(?<currentValue>.*?)\"\\n",
-        "\\s+url\\s+\"https://github.com/(?<depName>[\\w-]+/[\\w-]+)/releases/download/v#{version}/.*?\"\\n"
+        "version \"(?<currentValue>.*?)\"",
+        "url \"https://github.com/(?<depName>[\\w-]+/[\\w-]+)/releases/download"
       ],
-      "extractVersionTemplate": "^v(?<version>.*)$",
       "datasourceTemplate": "github-releases"
     }
   ]
