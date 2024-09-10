@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^Casks/[^/]+\\.rb$"
+      ],
+      "matchStrings": [
+        "\\s+version\\s+\"(?<currentValue>.*?)\"\\n",
+        "\\s+url\\s+\"https://github.com/(?<depName>[\\w-]+/[\\w-]+)/releases/download/v#{version}/.*?\"\\n"
+      ],
+      "extractVersionTemplate": "^v(?<version>.*)$",
+      "datasourceTemplate": "github-releases"
+    }
+  ]
+}
