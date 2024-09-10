@@ -10,8 +10,6 @@
     "schedule:monthly"
   ],
   "rebaseWhen": "conflicted",
-  "additionalBranchPrefix": "{{#if packageFileDir}}{{packageFileDir}}/{{/if}}",
-  "commitMessageSuffix": "{{#if packageFileDir}}in {{packageFileDir}}{{/if}}",
   "postUpdateOptions": [
     "gomodTidy"
   ]
