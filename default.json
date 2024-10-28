@@ -7,7 +7,8 @@
     ":label(dependencies)",
     ":prHourlyLimitNone",
     ":prConcurrentLimitNone",
-    "schedule:monthly"
+    "schedule:monthly",
+    ":semanticCommitTypeAll(fix)"
   ],
   "rebaseWhen": "conflicted",
   "postUpdateOptions": [
