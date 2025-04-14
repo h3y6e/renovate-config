@@ -8,7 +8,8 @@
     ":prHourlyLimitNone",
     ":prConcurrentLimitNone",
     "schedule:monthly",
-    ":semanticCommitTypeAll(fix)"
+    ":semanticCommitTypeAll(fix)",
+    "helpers:pinGitHubActionDigestsToSemver"
   ],
   "rebaseWhen": "conflicted",
   "postUpdateOptions": [
