@@ -8,12 +8,18 @@
     ":prHourlyLimitNone",
     ":prConcurrentLimitNone",
     "schedule:monthly",
-    ":semanticCommitTypeAll(fix)",
-    "helpers:pinGitHubActionDigestsToSemver"
+    ":semanticCommitTypeAll(fix)"
   ],
   "rebaseWhen": "conflicted",
-  "postUpdateOptions": [
-    "gomodTidy",
-    "gomodUpdateImportPaths"
+  "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths", "pnpmDedupe"],
+  "packageRules": [
+    {
+      "extends": ["helpers:pinGitHubActionDigestsToSemver"],
+      "matchPackageNames": ["!actions/{/,}**"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "minimumReleaseAge": null
+    }
   ]
 }
