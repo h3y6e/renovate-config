@@ -3,8 +3,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "^Casks/[^/]+\\.rb$"
+      "managerFilePatterns": [
+        "/^Casks/[^/]+\\.rb$/"
       ],
       "matchStringsStrategy": "combination",
       "matchStrings": [
