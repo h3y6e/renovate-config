@@ -1,0 +1,14 @@
+name: renovate-config:trigger
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - edited
+
+jobs:
+  trigger:
+    uses: ./.github/workflows/trigger.yaml
+    secrets: inherit

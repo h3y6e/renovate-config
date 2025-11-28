@@ -3,6 +3,9 @@ name: renovate-config:renovate
 on:
   schedule:
     - cron: "0 15 * * *"
+  repository_dispatch:
+    types:
+      - trigger-heyhoe-renovate
   workflow_dispatch:
 
 jobs:

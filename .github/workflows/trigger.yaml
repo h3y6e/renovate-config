@@ -1,0 +1,71 @@
+name: renovate-trigger
+
+on:
+  workflow_call:
+
+env:
+  RENOVATE_BOT: heyhoe-renovate[bot]
+  RENOVATE_CONFIG_REPO: h3y6e/renovate-config
+  DISPATCH_EVENT_TYPE: trigger-heyhoe-renovate
+
+jobs:
+  check-renovate:
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
+
+    outputs:
+      should-continue: ${{ steps.check-pr.outputs.should-continue || 'true' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Check PR for rebase checkbox
+        id: check-pr
+        if: github.event.action == 'edited'
+        run: |
+          # PR作成者がRenovate botでない場合はスキップ
+          PR_AUTHOR=$(jq -r '.pull_request.user.login' "$GITHUB_EVENT_PATH")
+          if [ "$PR_AUTHOR" != "$RENOVATE_BOT" ]; then
+            echo "PR author is not $RENOVATE_BOT. Skipping the workflow."
+            echo "should-continue=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # 古いbodyと新しいbodyを取得
+          OLD_BODY=$(jq -r '.changes.body.from // ""' "$GITHUB_EVENT_PATH")
+          NEW_BODY=$(jq -r '.pull_request.body // ""' "$GITHUB_EVENT_PATH")
+
+          # rebase-checkの状態をチェック
+          if [[ "$OLD_BODY" == *'- [ ] <!-- rebase-check -->'* ]] && \
+             [[ "$NEW_BODY" == *'- [x] <!-- rebase-check -->'* ]]; then
+            echo "Rebase check has been marked. Proceeding with the workflow."
+            echo "should-continue=true" >> $GITHUB_OUTPUT
+          else
+            echo "Rebase check condition not met. Skipping the workflow."
+            echo "should-continue=false" >> $GITHUB_OUTPUT
+          fi
+
+  trigger-renovate:
+    needs: check-renovate
+    if: ${{ needs.check-renovate.outputs.should-continue == 'true' }}
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
+
+    steps:
+      - name: Generate token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ secrets.RENOVATE_GITHUB_APP_ID }}
+          private-key: ${{ secrets.RENOVATE_GITHUB_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Trigger renovate
+        run: |
+          gh api -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            "repos/$RENOVATE_CONFIG_REPO/dispatches" \
+            -f event_type="$DISPATCH_EVENT_TYPE"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
