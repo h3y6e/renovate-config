@@ -12,6 +12,7 @@
   ],
   "rebaseWhen": "conflicted",
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths", "pnpmDedupe"],
+  "ignorePresets": ["helpers:pinGitHubActionDigests"],
   "packageRules": [
     {
       "extends": ["helpers:pinGitHubActionDigestsToSemver"],
