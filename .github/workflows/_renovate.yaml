@@ -26,7 +26,7 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Run renovate
-        uses: renovatebot/github-action@0984fb80fc633b17e57f3e8b6c007fe0dc3e0d62 # v40.3.6
+        uses: renovatebot/github-action@502904f1cefdd70cba026cb1cbd8c53a1443e91b # v44.1.0
         with:
           configurationFile: .github/renovate-config.json
           docker-cmd-file: .github/renovate-entrypoint.sh
