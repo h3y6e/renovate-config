@@ -6,12 +6,17 @@
     ":label(dependencies)",
     ":prHourlyLimitNone",
     ":prConcurrentLimitNone",
-    "schedule:monthly",
-    ":semanticCommitTypeAll(fix)"
+    "schedule:monthly"
   ],
   "rebaseWhen": "conflicted",
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths", "pnpmDedupe"],
+  "vulnerabilityAlerts": {
+    "addLabels": ["security"],
+    "automerge": false,
+    "enabled": true
+  },
   "ignorePresets": ["helpers:pinGitHubActionDigests"],
+  "minimumReleaseAge": "10 days",
   "packageRules": [
     {
       "extends": ["helpers:pinGitHubActionDigestsToSemver"],
@@ -19,7 +24,7 @@
     },
     {
       "matchUpdateTypes": ["patch"],
-      "minimumReleaseAge": null
+      "minimumReleaseAge": "3 days"
     }
   ]
 }
