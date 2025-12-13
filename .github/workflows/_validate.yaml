@@ -7,7 +7,6 @@ on:
       - "default.json"
       - "ignore-paths.json"
       - "casks.json"
-      - "monorepo.json"
     branches:
       - main
   pull_request:
@@ -16,10 +15,9 @@ on:
       - "default.json"
       - "ignore-paths.json"
       - "casks.json"
-      - "monorepo.json"
 
 jobs:
   validate:
     uses: ./.github/workflows/validator.yaml
     with:
-      config_files: ".github/renovate.json default.json ignore-paths.json casks.json monorepo.json"
+      config_files: ".github/renovate.json default.json ignore-paths.json casks.json"
