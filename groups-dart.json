@@ -1,0 +1,34 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "groupName": "isar groups",
+      "matchDatasources": ["dart"],
+      "matchPackageNames": ["/^isar/"]
+    },
+    {
+      "groupName": "flutterfire groups",
+      "matchDatasources": ["dart"],
+      "matchPackageNames": [
+        "/^firebase_/",
+        "cloud_firestore",
+        "cloud_functions"
+      ]
+    },
+    {
+      "groupName": "riverpod groups",
+      "matchDatasources": ["dart"],
+      "matchPackageNames": ["/riverpod/"]
+    },
+    {
+      "groupName": "slang groups",
+      "matchDatasources": ["dart"],
+      "matchPackageNames": ["/^slang/"]
+    },
+    {
+      "groupName": "custom_lint groups",
+      "matchDatasources": ["dart"],
+      "matchPackageNames": ["/^custom_lint/"]
+    }
+  ]
+}
