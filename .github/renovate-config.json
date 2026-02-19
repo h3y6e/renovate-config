@@ -3,7 +3,5 @@
   "branchPrefix": "heyhoe-renovate/",
   "onboarding": false,
   "platform": "github",
-  "repositories": [
-    "h3y6e/renovate-config"
-  ]
+  "repositories": ["h3y6e/renovate-config"]
 }
