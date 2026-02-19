@@ -1,7 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>h3y6e/renovate-config",
-    "local>h3y6e/renovate-config:ignore-paths"
+  "extends": ["local>h3y6e/renovate-config"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "renovatebot/renovate",
+      "managerFilePatterns": ["/^\\.github/workflows/.*\\.ya?ml$/"],
+      "matchStrings": ["RENOVATE_VERSION: \"(?<currentValue>\\S+)\""]
+    }
   ]
 }
