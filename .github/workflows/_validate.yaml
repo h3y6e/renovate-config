@@ -3,14 +3,16 @@ name: renovate-config:validate
 on:
   push:
     paths:
-      - ".github/**"
       - "**/*.json"
+      - ".github/workflows/_validate.yaml"
+      - ".github/workflows/validator.yaml"
     branches:
       - main
   pull_request:
     paths:
-      - ".github/**"
       - "**/*.json"
+      - ".github/workflows/_validate.yaml"
+      - ".github/workflows/validator.yaml"
 
 jobs:
   validate:
