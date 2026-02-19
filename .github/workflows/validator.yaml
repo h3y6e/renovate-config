@@ -4,13 +4,19 @@ on:
   workflow_call:
     inputs:
       config_files:
-        description: "renovate設定ファイルのパス。複数の場合はスペース区切りで指定する。"
+        description: "Path to renovate config file(s). Separate multiple paths with spaces. Glob patterns (e.g. **/*.json) are also supported"
         type: string
         default: ".github/renovate.json"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+  actions: read
 
 jobs:
   renovate-config-validator:
@@ -21,17 +27,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24"
+      - name: Setup Bun
+        id: setup-bun
+        uses: oven-sh/setup-bun@3d267786b128fe76c2f16a390aa2448b815359f3 # v2.1.2
 
-      - name: Cache npm
+      - name: Cache Bun dependencies
         uses: actions/cache@v5
         with:
-          path: ~/.npm
-          key: npm-${{ runner.os }}-${{ runner.arch }}
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-${{ runner.arch }}-bun-${{ steps.setup-bun.outputs.bun-version }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-bun-
+
+      - name: Install renovate
+        run: bun add -g renovate
 
       - name: Validate
         run: |
-          echo "${{ inputs.config_files }}" | xargs npx -y -p renovate -- renovate-config-validator --strict
+          # Resolve glob patterns and validate files
+          FILES=""
+          for pattern in ${{ inputs.config_files }}; do
+            if [[ $pattern == *"*"* ]]; then
+              FILES="$FILES $(find . -type f -path "$pattern" -not -path "*/node_modules/*")"
+            else
+              FILES="$FILES $pattern"
+            fi
+          done
+
+          # Trim and execute
+          FILES=$(echo $FILES | xargs)
+          [ -z "$FILES" ] && { echo "No files found matching '${{ inputs.config_files }}'"; exit 1; }
+          echo "$FILES" | xargs renovate-config-validator --strict

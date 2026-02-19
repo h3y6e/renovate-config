@@ -24,7 +24,7 @@ jobs:
         id: check-pr
         if: github.event.action == 'edited'
         run: |
-          # PR作成者がRenovate botでない場合はスキップ
+          # Skip if the PR author is not Renovate bot
           PR_AUTHOR=$(jq -r '.pull_request.user.login' "$GITHUB_EVENT_PATH")
           if [ "$PR_AUTHOR" != "$RENOVATE_BOT" ]; then
             echo "PR author is not $RENOVATE_BOT. Skipping the workflow."
@@ -32,11 +32,11 @@ jobs:
             exit 0
           fi
 
-          # 古いbodyと新しいbodyを取得
+          # Get the old and new body
           OLD_BODY=$(jq -r '.changes.body.from // ""' "$GITHUB_EVENT_PATH")
           NEW_BODY=$(jq -r '.pull_request.body // ""' "$GITHUB_EVENT_PATH")
 
-          # rebase-checkの状態をチェック
+          # Check the state of the rebase-check checkbox
           if [[ "$OLD_BODY" == *'- [ ] <!-- rebase-check -->'* ]] && \
              [[ "$NEW_BODY" == *'- [x] <!-- rebase-check -->'* ]]; then
             echo "Rebase check has been marked. Proceeding with the workflow."
