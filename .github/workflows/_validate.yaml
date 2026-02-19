@@ -4,20 +4,16 @@ on:
   push:
     paths:
       - ".github/**"
-      - "default.json"
-      - "ignore-paths.json"
-      - "casks.json"
+      - "**/*.json"
     branches:
       - main
   pull_request:
     paths:
       - ".github/**"
-      - "default.json"
-      - "ignore-paths.json"
-      - "casks.json"
+      - "**/*.json"
 
 jobs:
   validate:
     uses: ./.github/workflows/validator.yaml
     with:
-      config_files: ".github/renovate.json default.json ignore-paths.json casks.json"
+      config_files: "**/*.json"
