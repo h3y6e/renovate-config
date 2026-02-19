@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "platformAutomerge": true,
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "lockFileMaintenance",
+        "bump"
+      ],
+      "matchCurrentVersion": "!/^v?0/",
+      "extends": ["schedule:earlyMondays"],
+      "automerge": true
+    }
+  ]
+}
