@@ -1,11 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices",
+    "config:recommended",
+    "docker:pinDigests",
+    ":configMigration",
+    ":pinDevDependencies",
+    "abandonments:recommended",
+    "security:minimumReleaseAgeNpm",
+    ":maintainLockFilesWeekly",
     ":timezone(Asia/Tokyo)",
     ":label(dependencies)",
     ":prHourlyLimitNone",
-    ":prConcurrentLimitNone",
+    ":prConcurrentLimit10",
+    ":semanticCommitTypeAll(fix)",
     "schedule:monthly"
   ],
   "rebaseWhen": "conflicted",
@@ -15,7 +22,6 @@
     "automerge": false,
     "enabled": true
   },
-  "ignorePresets": ["helpers:pinGitHubActionDigests"],
   "minimumReleaseAge": "10 days",
   "packageRules": [
     {
