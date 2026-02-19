@@ -11,8 +11,7 @@
     ":timezone(Asia/Tokyo)",
     ":label(dependencies)",
     ":prHourlyLimitNone",
-    ":prConcurrentLimit10",
-    ":semanticCommitTypeAll(fix)",
+    ":prConcurrentLimitNone",
     "schedule:monthly"
   ],
   "rebaseWhen": "conflicted",
