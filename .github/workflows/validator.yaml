@@ -12,12 +12,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
-  actions: read
-
 jobs:
   renovate-config-validator:
     runs-on: ubuntu-slim
