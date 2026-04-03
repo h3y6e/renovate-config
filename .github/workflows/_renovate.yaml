@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      RENOVATE_VERSION: "42.99.0"
+      RENOVATE_VERSION: "43.89.1"
       BASE_DIR: /tmp/renovate
       CACHE_DIR: /tmp/renovate/cache/renovate/repository
 
