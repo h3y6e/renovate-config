@@ -51,7 +51,7 @@ jobs:
           sudo chown -R "12021:$(id -g)" "$BASE_DIR"
 
       - name: Run renovate
-        uses: renovatebot/github-action@f7fad228a053c69a98e24f8e4f6cf40db8f61e08 # v44.2.1
+        uses: renovatebot/github-action@68a3ea99af6ad249940b5a9fdf44fc6d7f14378b # v46.1.6
         with:
           renovate-version: ${{ env.RENOVATE_VERSION }}
           configurationFile: .github/renovate-config.json
