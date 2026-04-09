@@ -14,6 +14,9 @@
     ":prConcurrentLimitNone",
     "schedule:monthly"
   ],
+  "nix": {
+    "enabled": true
+  },
   "rebaseWhen": "conflicted",
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths", "pnpmDedupe"],
   "vulnerabilityAlerts": {
