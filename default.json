@@ -1,13 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    "docker:pinDigests",
-    ":configMigration",
-    ":pinDevDependencies",
-    "abandonments:recommended",
-    "security:minimumReleaseAgeNpm",
-    ":maintainLockFilesWeekly",
+    "config:best-practices",
+    "helpers:pinGitHubActionDigestsToSemver",
     ":timezone(Asia/Tokyo)",
     ":label(dependencies)",
     ":prHourlyLimitNone",
@@ -24,15 +19,5 @@
     "automerge": false,
     "enabled": true
   },
-  "minimumReleaseAge": "10 days",
-  "packageRules": [
-    {
-      "extends": ["helpers:pinGitHubActionDigestsToSemver"],
-      "matchPackageNames": ["!actions/{/,}**"]
-    },
-    {
-      "matchUpdateTypes": ["patch"],
-      "minimumReleaseAge": "3 days"
-    }
-  ]
+  "minimumReleaseAge": "10 days"
 }
