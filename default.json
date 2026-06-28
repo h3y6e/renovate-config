@@ -16,8 +16,7 @@
   "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths", "pnpmDedupe"],
   "vulnerabilityAlerts": {
     "addLabels": ["security"],
-    "automerge": false,
     "enabled": true
   },
-  "minimumReleaseAge": "10 days"
+  "minimumReleaseAge": "8 days"
 }
