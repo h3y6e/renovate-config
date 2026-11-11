@@ -18,5 +18,13 @@
     "addLabels": ["security"],
     "enabled": true
   },
-  "minimumReleaseAge": "8 days"
+  "minimumReleaseAge": "8 days",
+  "packageRules": [
+    {
+      "matchManagers": ["mise"],
+      "matchDatasources": ["conda"],
+      "registryUrls": ["https://api.anaconda.org/package/conda-forge"],
+      "versioning": "loose"
+    }
+  ]
 }
