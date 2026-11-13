@@ -7,7 +7,7 @@
     ":label(dependencies)",
     ":prHourlyLimitNone",
     ":prConcurrentLimitNone",
-    "schedule:monthly"
+    "schedule:weekly"
   ],
   "nix": {
     "enabled": true
